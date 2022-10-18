@@ -13,11 +13,11 @@ const AppRoutes = () => {
         <NavigationContainer>
             <Stack.Navigator>
                 <Stack.Group screenOptions={{ headerShown: false }}>
-                    <Stack.Screen name="AdvertisementList" component={AdvertisementsScreen} />
                     <Stack.Screen name='Login' component={LoginScreen} />
                 </Stack.Group>
                 <Stack.Group>
                     <Stack.Screen name="Home" component={HomeScreen} />
+                    <Stack.Screen name="AdvertisementList" component={AdvertisementsScreen} />
                 </Stack.Group>
             </Stack.Navigator>
         </NavigationContainer>

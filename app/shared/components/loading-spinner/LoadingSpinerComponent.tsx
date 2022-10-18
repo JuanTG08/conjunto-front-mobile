@@ -2,8 +2,7 @@ import {
   HStack,
   Spinner,
   Heading,
-  Box,
-  Image
+  Box
 } from "native-base";
 import React from 'react';
 
