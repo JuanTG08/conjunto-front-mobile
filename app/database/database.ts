@@ -1,4 +1,9 @@
-import SqlLite, { SQLiteDatabase } from "react-native-sqlite-storage";
+import SqlLite, {
+  ResultSet,
+  SQLiteDatabase,
+  Transaction,
+} from "react-native-sqlite-storage";
+import { IDataUpdateDB } from "../shared/interfaces/IDataDB";
 
 export default class SQLConnect {
   public db: SQLiteDatabase;
@@ -36,9 +41,54 @@ export default class SQLConnect {
     );
   }
 
-  async select(selectFields: string = "*", filter: string = "") {
-    return await this.db.transaction((tx: SqlLite.Transaction) =>
-      tx.executeSql(`SELECT ${selectFields} FROM ${filter}`)
+  async select(tableField: string, selectFields: string = "*", filter: string = "") {
+    let result: any = false;
+    let error: boolean | string = false;
+    await this.db.transaction((tx: SqlLite.Transaction) =>
+      tx.executeSql(
+        `SELECT ${selectFields} FROM ${tableField} WHERE ${filter}`,
+        [],
+        (tx: Transaction, results: ResultSet) => {
+          const len = results.rows.length;
+          if (len <= 0) return (error = "No se encontro nada");
+          result = results.rows;
+        },
+        () => (error = "No se pudo acceder a los datos")
+      )
     );
+    return { result, error };
+  }
+
+  async update(
+    tableField: string,
+    dataUpdate: IDataUpdateDB[],
+    filter: string
+  ) {
+    if (dataUpdate.length <= 0) return false;
+    let valuesMap = "";
+    dataUpdate.map(
+      ({ colomn, value }: IDataUpdateDB, i: number) =>
+        (valuesMap +=
+          ` ${colomn} = ${value}` + (i < dataUpdate.length - 1 ? "," : ""))
+    );
+    return await this.db.transaction((tx: SqlLite.Transaction) =>
+      tx.executeSql(`UPDATE ${tableField} SET ${valuesMap} WHERE ${filter}`)
+    );
+  }
+
+  async delete(tableField: string, filter: string) {
+    let result: any = false;
+    let error: boolean | string = false;
+    await this.db.transaction((tx: SqlLite.Transaction) =>
+      tx.executeSql(
+        `DELETE FROM ${tableField} WHERE ${filter}`,
+        [],
+        (tx: Transaction, results: ResultSet) => {
+          result = "Se elimino correctamente"
+        },
+        () => (error = "No se pudo acceder a los datos")
+      )
+    );
+    return { result, error };
   }
 }
