@@ -2,19 +2,18 @@ import {
   Box,
   FormControl,
   Input,
-  Text,
   Stack,
   WarningOutlineIcon,
-  HStack,
-  Center,
   Heading,
   Button,
 } from "native-base";
 import React, { useState } from "react";
+import { Environment } from "../../../Environment";
 import { isEmail, _length } from "../../shared/hooks/Hooks";
+import { StackActions } from "@react-navigation/native";
 import {useLoginFetching} from "./useLoginFetching";
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
   const [emailRef, setEmailRef] = useState({
     value: "",
     isInvalid: false,
@@ -45,13 +44,13 @@ export default function LoginScreen() {
     return { email, password: pass };
   }
 
-  const submitLoggin = () => {
-    const data = getData();
+  const submitLoggin = async () => {
+    const data: any = getData();
     // Validamos si los datos son correctos
     if (!data) return;
-    const { errorLogin } = useLoginFetching(data);
-    if (errorLogin) return;
-
+    const errorLogin = await useLoginFetching(data);
+    if (errorLogin.error) return alert(errorLogin.message);
+    navigation.dispatch(StackActions.replace(Environment.PAGES_NAME.HOME, { method: 'replace' } ));
   };
 
   return (

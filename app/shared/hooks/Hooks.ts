@@ -1,9 +1,8 @@
-import { IDataResponse } from "../interfaces/DataResponse";
+import { IResponseInternal } from "../interfaces/IResponseInternal";
 
-export const Message = (error, statusCode, message, payload = false): IDataResponse => {
+export const Message = (error: boolean, message: string, payload: any = false): IResponseInternal => {
   return {
     error,
-    statusCode,
     message,
     payload,
   };
@@ -21,3 +20,13 @@ export const _length = (value: any, max: number, min: number) => {
   value = value.toString();
   return value.length <= max && value.length >= min ? value : undefined;
 }
+
+export const verifyDataObject = (obj: any, exception: string[] = []) => {
+  let error: any = [];
+  Object.entries(obj).forEach(([key, val]) => {
+    if (!exception.includes(<never>key)) {
+      if (val === undefined || val === null) error.push(<never>key);
+    }
+  });
+  return error.length === 0 ? true : error;
+};
