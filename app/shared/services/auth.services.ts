@@ -50,11 +50,17 @@ export default class AuthService {
   }
 
   async getData() {
-    const token = await this.getToken();
-    const user = await this.getUserData();
+    let token = await (await this.getToken());
+    let user = await (await this.getUserData());
     if (token.error || user.error)
       return Message(true, "Datos Vacios");
-    return Message(false, "Ok", { token, user });
+    try {
+      user = JSON.parse(user.payload);
+      token = token.payload;
+      return Message(false, "Ok", { token, user });
+    } catch (error) {
+      return Message(true, "Datos Vacios");
+    }
   }
 
   closeSession() {

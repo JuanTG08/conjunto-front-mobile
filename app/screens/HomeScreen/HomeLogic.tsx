@@ -1,10 +1,8 @@
 import { StackActions } from "@react-navigation/native";
 import { Environment } from "../../../Environment";
+import { useGoTo } from "../../shared/hooks/useRendering";
 import AuthService from "../../shared/services/auth.services";
-const serviceAuth = new AuthService();
-export const useGoOut = (navigation: any) => {
-  serviceAuth.closeSession();
-  navigation.dispatch(
-    StackActions.replace(Environment.PAGES_NAME.LOGIN, { method: "replace" })
-  );
-};
+
+export const useGoToAdvertisement = (navigation: any) => {
+  useGoTo(navigation, Environment.PAGES_NAME.ADVERTISEMENT_LIST, Environment.METHOD_RENDERING.NAVIGATE);
+}

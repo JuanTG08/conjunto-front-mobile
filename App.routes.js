@@ -20,7 +20,7 @@ const AppRoutes = () => {
                 <Stack.Group screenOptions={{ headerShown: false }}>
                     <Stack.Screen name={ Environment.PAGES_NAME.LOGIN } component={LoginScreen} />
                 </Stack.Group>
-                <Stack.Group>
+                <Stack.Group screenOptions={{ headerShown: false }}>
                     <Stack.Screen name={ Environment.PAGES_NAME.HOME } component={HomeScreen} />
                     <Stack.Screen name={ Environment.PAGES_NAME.ADVERTISEMENT_LIST } component={AdvertisementsScreen} />
                 </Stack.Group>

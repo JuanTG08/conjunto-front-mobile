@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Environment } from "../../../Environment";
 import { NativeBaseProvider, ScrollView, Text } from "native-base";
 import { AntDesign } from "@expo/vector-icons";
@@ -6,8 +6,9 @@ import CardsComplateComponent from "../../shared/components/cards-complate/Cards
 import LoadingSpinerComponent from "../../shared/components/loading-spinner/LoadingSpinerComponent";
 import AdvertisementFetching from "./useAdvertisementFetching";
 import { IAdvertisement } from "../../shared/interfaces/Advertisement";
+import { Alert } from "react-native";
 
-const AdvertisementsScreen = () => {
+const AdvertisementsScreen = ({ navigation }) => {
   const {
     listAdvertisements,
     errorRequest,

@@ -15,11 +15,11 @@ import {useLoginFetching} from "./useLoginFetching";
 
 export default function LoginScreen({ navigation }) {
   const [emailRef, setEmailRef] = useState({
-    value: "",
+    value: "admin@gmail.com",
     isInvalid: false,
   });
   const [passRef, setPassRef] = useState({
-    value: "",
+    value: "12345678",
     isInvalid: false,
   });
 
@@ -50,7 +50,7 @@ export default function LoginScreen({ navigation }) {
     if (!data) return;
     const errorLogin = await useLoginFetching(data);
     if (errorLogin.error) return alert(errorLogin.message);
-    navigation.dispatch(StackActions.replace(Environment.PAGES_NAME.HOME, { method: 'replace' } ));
+    navigation.dispatch(StackActions.replace(Environment.PAGES_NAME.LOADING, { method: 'replace' } ));
   };
 
   return (

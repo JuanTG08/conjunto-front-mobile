@@ -3,3 +3,9 @@ export interface IToRendering {
     next?: any;
     method: string;
 }
+
+export interface IToRenderingParams {
+    next?: any;
+    method?: string;
+    toPage: string;
+}
