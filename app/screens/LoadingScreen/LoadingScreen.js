@@ -7,7 +7,6 @@ import {
 } from "../../shared/hooks/useRendering";
 import { isLoggedIn } from "./LoadingLogic";
 import { useDispatch, useSelector } from "react-redux";
-import { IResponseInternal } from "../../shared/interfaces/IResponseInternal";
 import AuthService from "../../shared/services/auth.services";
 import { useGoOut } from "../../shared/hooks/useRedirect";
 import { setUser } from "../../redux/slices/user.slice";
@@ -18,7 +17,7 @@ const authService = new AuthService();
 export default function LoadingScreen({ route, navigation }) {
 
   const dispatch = useDispatch();
-  const User = useSelector((state: any) => state.user);
+  const User = useSelector((state) => state.user);
 
   const getData = async () => {
     const data = await authService.getData().then((res) => res).catch(err => err);

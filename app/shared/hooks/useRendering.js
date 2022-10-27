@@ -1,12 +1,11 @@
 import { Environment } from "../../../Environment";
-import { IToRendering, IToRenderingParams } from "../../shared/interfaces/IToRendering";
-import AuthService from "../../shared/services/auth.services";
+import AuthService from "../services/auth.services";
 import { StackActions } from "@react-navigation/native";
 
-export const useGetDataToRender = async (params: IToRenderingParams): Promise<IToRendering> => {
-  const service: AuthService = new AuthService(); // Obtenemos el servicio
+export const useGetDataToRender = async (params) => {
+  const service = new AuthService(); // Obtenemos el servicio
 
-  const data: IToRendering = {
+  const data = {
     renderPage: Environment.PAGES_NAME.LOGIN, // Establecemos el valor por defecto del SCREEN
     next: params?.next, // Parametros necesarios de envio
     method: params?.method ? params?.method : Environment.METHOD_RENDERING.REPLACE, // Indicamos si va a utilizar replace o navigate
@@ -23,7 +22,7 @@ export const useGetDataToRender = async (params: IToRenderingParams): Promise<IT
   return data;
 };
 
-export const useRenderPage = (navigation: any, toRendering: IToRendering) => {
+export const useRenderPage = (navigation, toRendering) => {
   switch (toRendering.method) {
     case Environment.METHOD_RENDERING.NAVIGATE:
       navigation.navigate({
@@ -43,7 +42,7 @@ export const useRenderPage = (navigation: any, toRendering: IToRendering) => {
   }
 }
 
-export const useGoTo = (navigation:any, redirect: string, method: string, next?: any) => {
+export const useGoTo = (navigation, redirect, method, next = null) => {
   useGetDataToRender({
     toPage: redirect,
     next,

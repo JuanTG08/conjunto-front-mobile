@@ -1,16 +1,14 @@
 import { Environment } from "../../../Environment";
 import { Message, verifyDataObject, _length } from "../hooks/Hooks";
 import useLocalStorage from "../hooks/useStorage";
-import { IResponseInternal } from "../interfaces/IResponseInternal";
-import { IUser } from "../interfaces/IUser";
 
 export default class AuthService {
-  private validData(res: any): IResponseInternal {
+  validData(res) {
     if (!res || res.length < 1) return Message(true, "Datos Vacios")
     return Message(false, "Se obtuvo los datos", res)
   }
 
-  async setUserData(userData: IUser) {
+  async setUserData(userData) {
     // Verificamos los datos que nos llegan
     const data = {
       _id: _length(userData._id, 128, 1),
@@ -26,7 +24,7 @@ export default class AuthService {
       .then((res) => Message(!res, "Ok"))
       .catch((err) => Message(false, "No es posible guardar la información"));
   }
-  setToken(token: string) {
+  setToken(token) {
     // Establecemos el token
     if (token.length < 1) return Message(true, "Datos incompletos");
     return useLocalStorage

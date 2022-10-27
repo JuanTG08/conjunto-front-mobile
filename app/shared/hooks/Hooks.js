@@ -1,6 +1,4 @@
-import { IResponseInternal } from "../interfaces/IResponseInternal";
-
-export const Message = (error: boolean, message: string, payload: any = false): IResponseInternal => {
+export const Message = (error, message, payload = false) => {
   return {
     error,
     message,
@@ -8,12 +6,12 @@ export const Message = (error: boolean, message: string, payload: any = false): 
   };
 };
 
-export const isEmail = (email: string): boolean | string => {
+export const isEmail = (email) => {
   const expresionMail = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
   return expresionMail.test(email) ? email : false;
 }
 
-export const _length = (value: any, max: number, min: number) => {
+export const _length = (value, max, min) => {
   if (value === undefined) return undefined;
   if (typeof value == "object")
     return value.length <= max && value.length >= min ? value : undefined;
@@ -21,11 +19,11 @@ export const _length = (value: any, max: number, min: number) => {
   return value.length <= max && value.length >= min ? value : undefined;
 }
 
-export const verifyDataObject = (obj: any, exception: string[] = []) => {
-  let error: any = [];
+export const verifyDataObject = (obj, exception = []) => {
+  let error = [];
   Object.entries(obj).forEach(([key, val]) => {
-    if (!exception.includes(<never>key)) {
-      if (val === undefined || val === null) error.push(<never>key);
+    if (!exception.includes(key)) {
+      if (val === undefined || val === null) error.push(key);
     }
   });
   return error.length === 0 ? true : error;

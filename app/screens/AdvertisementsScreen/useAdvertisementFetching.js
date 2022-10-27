@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
-import { IAdvertisement, TAdvertisement } from "../../shared/interfaces/Advertisement";
 import { fetchListAllAdvertisement } from "./fetchAdvertisement";
 
-export default function AdvertisementFetching(id: string) {
-    const [listAdvertisements, setListAdvertisement] = useState<TAdvertisement[] | boolean>(false);
-    const [errorRequest, setErrorResponse]: any = useState<string | boolean>(false);
+export default function AdvertisementFetching(id) {
+    const [listAdvertisements, setListAdvertisement] = useState(false);
+    const [errorRequest, setErrorResponse] = useState(false);
 
-    const setDataList = (advertisements: IAdvertisement[]) => {
+    const setDataList = (advertisements) => {
         setListAdvertisement(advertisements);
         setErrorResponse(false);
     }
 
-    const setError = (error: string) => {
+    const setError = (error) => {
         setListAdvertisement(false);
         setErrorResponse(error);
     }

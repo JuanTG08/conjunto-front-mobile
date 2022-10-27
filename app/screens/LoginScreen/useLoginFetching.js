@@ -1,14 +1,12 @@
 import { Environment } from "../../../Environment";
 import { Message } from "../../shared/hooks/Hooks";
-import { IDataResponse } from "../../shared/interfaces/DataResponse";
-import { IUserLogin } from "../../shared/interfaces/DataUser";
 import AuthService from "../../shared/services/auth.services";
 import { fetchLogin } from "./fetchLogin";
 
-export const useLoginFetching = (data: IUserLogin) => {
-  const service: AuthService = new AuthService();
+export const useLoginFetching = (data) => {
+  const service = new AuthService();
   return fetchLogin(data)
-    .then(async (res: IDataResponse) => {
+    .then(async (res) => {
       if (res.error || res.statusCode != 200) return Message(true, res.message);
       const { token, dataUser } = res.payload;
       if (!token || !dataUser) return Message(true, "Error en el servidor");
@@ -17,5 +15,5 @@ export const useLoginFetching = (data: IUserLogin) => {
       if (setT.error || setU.error) return Message(true, "Error interno");
       return Message(false, "Ok");
     })
-    .catch((err) => Message(true, "Error de conexión"));
+    .catch((err) => Message(true, "Error de conexión", err));
 };

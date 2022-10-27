@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default class useLocalStorage {
-  static async setItem(key: string, value: string) {
+  static async setItem(key, value) {
     try {
       await AsyncStorage.setItem(key, value);
       return true;
@@ -9,7 +9,7 @@ export default class useLocalStorage {
       throw err;
     }
   }
-  static async getItem(key: string) {
+  static async getItem(key) {
     try {
       const res = await AsyncStorage.getItem(key);
       if (res !== null) {
@@ -29,7 +29,7 @@ export default class useLocalStorage {
       throw err;
     }
   }
-  static async multiGet(keys: string[]) {
+  static async multiGet(keys) {
     try {
       return await AsyncStorage.multiGet(keys);
     } catch (err) {
@@ -37,11 +37,11 @@ export default class useLocalStorage {
       return false;
     }
   }
-  static async updateItem(key: string, value: string) {
+  static async updateItem(key, value) {
     await useLocalStorage.removeItem(key);
     return await useLocalStorage.setItem(key, value);
   }
-  static async removeItem(key: string) {
+  static async removeItem(key) {
     try {
       await AsyncStorage.removeItem(key);
     } catch (err) {

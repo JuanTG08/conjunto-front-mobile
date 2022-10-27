@@ -5,7 +5,7 @@ import { Environment } from "../../../Environment";
 import { emptyUser } from "../../redux/slices/user.slice";
 import AuthService from "../services/auth.services";
 
-export const useGoOut = (navigation: any, dispatch: Dispatch) => {
+export const useGoOut = (navigation, dispatch) => {
   dispatch(emptyUser({}));
   const serviceAuth = new AuthService();
   serviceAuth.closeSession();

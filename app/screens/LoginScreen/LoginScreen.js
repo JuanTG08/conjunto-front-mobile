@@ -45,10 +45,11 @@ export default function LoginScreen({ navigation }) {
   }
 
   const submitLoggin = async () => {
-    const data: any = getData();
+    const data = getData();
     // Validamos si los datos son correctos
     if (!data) return;
     const errorLogin = await useLoginFetching(data);
+    console.log(errorLogin);
     if (errorLogin.error) return alert(errorLogin.message);
     navigation.dispatch(StackActions.replace(Environment.PAGES_NAME.LOADING, { method: 'replace' } ));
   };

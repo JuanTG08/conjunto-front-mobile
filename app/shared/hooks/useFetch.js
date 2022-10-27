@@ -1,18 +1,19 @@
 import axios from "axios";
-import { IUseFetchInit } from "../interfaces/useFetch";
 
 export class useFetch {
-  constructor(private url: string, private params?: string[]) {
+  url = "";
+  constructor(url, params = false) {
+    this.url = url;
     if (!params) return;
     if (this.url.at(-1) != "/") this.url += "/";
     this.url += this.params.join("/");
   }
 
-  private authToken(): string {
+  authToken() {
     return "Token";
   }
 
-  private init({ init, body, method }: IUseFetchInit): RequestInit {
+  init({ init, body, method }) {
     if (init) return init;
     let _init = {
       method,
@@ -28,14 +29,14 @@ export class useFetch {
       },
     };
     if (body) _init["body"] = JSON.stringify(body);
-    return <RequestInit>_init;
+    return _init;
   }
 
-  async get(init?: RequestInit) {
+  async get(init = null) {
     return fetch(this.url, this.init({ init, method: "GET" })).then((res) => res.json);
   }
 
-  post(body?: any, init?: RequestInit) {
+  post(body = null, init = null) {
     return axios.post(this.url, body, {
       headers: {
         "Content-Type": "application/json",

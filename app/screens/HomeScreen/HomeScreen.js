@@ -7,7 +7,7 @@ import { useGoOut } from "../../shared/hooks/useRedirect";
 
 const HomeScreen = ({ route, navigation }) => {
   const dispatch = useDispatch();
-  const user = useSelector((state: any) => state.user);
+  const user = useSelector((state) => state.user);
   const goOut = () => {
     useGoOut(navigation, dispatch);
   };
