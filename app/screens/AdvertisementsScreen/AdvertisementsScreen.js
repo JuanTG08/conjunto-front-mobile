@@ -6,12 +6,19 @@ import CardsComplateComponent from "../../shared/components/cards-complate/Cards
 import LoadingSpinerComponent from "../../shared/components/loading-spinner/LoadingSpinerComponent";
 import AdvertisementFetching from "./useAdvertisementFetching";
 import { Alert } from "react-native";
+import { io } from "socket.io-client";
+
 
 const AdvertisementsScreen = ({ navigation }) => {
+  const socket = io(Environment.API_URL);
   const {
     listAdvertisements,
     errorRequest,
   } = AdvertisementFetching("012312");
+
+  useEffect(() => {
+
+  }, [])
 
   return (
     <NativeBaseProvider>
